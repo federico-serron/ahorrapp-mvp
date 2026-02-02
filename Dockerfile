@@ -18,6 +18,8 @@ ENV PYTHONUNBUFFERED=1
 
 # Exponer puerto
 EXPOSE 8000
+# Instalar Gunicorn y usar el WSGI entrypoint
+RUN pip install --no-cache-dir gunicorn
 
-# Comando de inicio
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=8000"]
+# Exponer puerto y arrancar con gunicorn usando $PORT
+CMD ["sh", "-c", "gunicorn -w 4 -b 0.0.0.0:${PORT:-8000} wsgi:app"]
