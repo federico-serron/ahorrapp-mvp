@@ -3,15 +3,15 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "5001:8000"
     environment:
       - FLASK_ENV=production
       - PYTHONUNBUFFERED=1
     volumes:
-      - ./backend/expenses.db:/app/expenses.db
+      - ./backend/expenses.db:/app/backend/expenses.db
     restart: unless-stopped
 
   frontend:
